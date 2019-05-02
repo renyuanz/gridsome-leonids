@@ -8,5 +8,14 @@ module.exports = {
   siteName: 'Gridsome Leonids',
   siteUrl: 'https://renyuanz.github.io',
   pathPrefix: '/gridsome-leonids',
-  plugins: []
+  plugins: [
+    {
+      use: '@gridsome/source-filesystem',
+      options: {
+        path: 'blog/*.md',
+        typeName: 'BlogPost',
+        route: '/:slug'
+      }
+    }
+  ]
 }

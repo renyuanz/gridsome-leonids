@@ -1,33 +1,56 @@
 <template>
-  <Layout>
-    
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Example image" src="~/favicon.png" width="135" />
-    
-    <h1>Hello, world!</h1>
-   
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <p class="home-links">
-      <a href="https://gridsome.org/docs" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+  <Layout class="home">
+    <ul>
+      <li v-for="{ node } in $page.allBlogPost.edges" :key="node._id">
+        <router-link :to="node.path">
+          <h2 v-html="node.title"/>
+        </router-link>
+        <span v-html="node.date"/>
+        <div v-html="node.description"/>
+      </li>
+    </ul>
   </Layout>
 </template>
 
-<script>
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
+<page-query>
+  query Home ($page: Int) {
+    allBlogPost (page: $page) {
+      edges {
+        node {
+          _id
+          title
+          date (format: "D MMMM, YYYY")
+          path
+          description
+        }
+      }
+    }
   }
-}
-</script>
+</page-query>
 
-<style>
-.home-links a {
-  margin-right: 1rem;
-}
+<style scoped>
+  .home >>> .heading {
+    margin-bottom: 70px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  ul li {
+    margin-bottom: 20px;
+  }
+  ul li a h2 {
+    margin-bottom: 10px;
+  }
+  span {
+    font-size: 80%;
+    padding: 0;
+  }
+  ul li p:first-child {
+    margin-top: 3px;
+  }
+  ul li p {
+    margin: 0;
+    line-height: 1.5;
+  }
 </style>
