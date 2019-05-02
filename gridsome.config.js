@@ -6,5 +6,7 @@
 
 module.exports = {
   siteName: 'Gridsome Leonids',
+  siteUrl: 'https://renyuanz.github.io',
+  pathPrefix: '/gridsome-leonids',
   plugins: []
 }
